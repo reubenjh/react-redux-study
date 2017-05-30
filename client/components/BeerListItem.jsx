@@ -7,7 +7,7 @@ const BeerListItem = (props) => {
       <p className='name'>{beer.name}</p>
       <p className='description'>{beer.brewery}</p>
       <p>
-        <span className='country'>{beer.countr}</span>
+        <span className='country'>{beer.country}</span>
         <span className='abv'>{beer.abv} abv</span>
         <a href='#'
           className='cart-link'
