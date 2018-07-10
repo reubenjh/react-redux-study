@@ -1,4 +1,6 @@
 import React from 'react'
+import {beerAdd} from '../actions'
+import {connect} from 'react-redux'
 
 const BeerListItem = (props) => {
   const beer = props.beer
@@ -11,10 +13,10 @@ const BeerListItem = (props) => {
         <span className='abv'>{beer.abv} abv</span>
         <a href='#'
           className='cart-link'
-          onClick={() => props.addToCart(beer.id)}>Add to cart</a>
+          onClick={() => props.dispatch(beerAdd(beer.id))}>Add to cart</a>
       </p>
     </div>
   )
 }
 
-export default BeerListItem
+export default connect()(BeerListItem)
