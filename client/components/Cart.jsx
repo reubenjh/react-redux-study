@@ -6,12 +6,11 @@ class Cart extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      cart: this.props.cart
+      cart: props.cart.map(item => ({ ...item }))
     }
 
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
-    this.goBack = this.goBack.bind(this)
   }
 
   handleChange(e) {
@@ -22,7 +21,6 @@ class Cart extends React.Component {
       }
       return beer
     })
-
     this.setState({
       cart: newCart
     })
@@ -32,15 +30,6 @@ class Cart extends React.Component {
     e.preventDefault()
     this.props.dispatch(updateCart(this.state.cart))
     // not obvious that you need to submit, and no visual confirmation of submitting yet
-  }
-
-  goBack () {
-    let freshCart = this.props.cart
-      this.setState({
-        cart: freshCart
-      })
-    this.props.dispatch(navigate('listing'))
-    // bug with go back button updating cart
   }
 
 
@@ -72,7 +61,7 @@ class Cart extends React.Component {
       </table>
 
       <p className='actions'>
-        <a href='#' onClick={this.goBack}>Continue shopping</a>
+        <a href='#' onClick={() => this.props.dispatch(navigate('listing'))}>Continue shopping</a>
         <button onClick={this.handleSubmit}>Update</button>
         <button className='button-primary'>Checkout</button>
       </p>
