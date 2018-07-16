@@ -15,6 +15,11 @@ export const cartReducer = (state = initialState, action) => {
                 return [...state, newBeer]
             }
 
+        case 'REMOVE_FROM_CART':
+            return state.filter((beer) => {
+                return (beer.id != action.id)
+            })
+            
         case 'UPDATE_CART':
             return action.cart
 

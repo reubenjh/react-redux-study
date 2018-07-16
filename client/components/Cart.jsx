@@ -1,16 +1,22 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { navigate, updateCart } from '../actions'
+import { navigate, updateCart, beerRemove, purchase } from '../actions'
 
 class Cart extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      cart: props.cart.map(item => ({ ...item }))
+      cart: this.freshCart.bind(this)()
     }
 
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleDelete = this.handleDelete.bind(this)
+    this.handleCheckout = this.handleCheckout.bind(this)
+  }
+
+  freshCart() {
+    return this.props.cart.map(item => ({ ...item }))
   }
 
   handleChange(e) {
@@ -30,6 +36,25 @@ class Cart extends React.Component {
     e.preventDefault()
     this.props.dispatch(updateCart(this.state.cart))
     // not obvious that you need to submit, and no visual confirmation of submitting yet
+  }
+
+  handleDelete (e) {
+    e.preventDefault()
+    let item = this.state.cart.find(beer => `${beer.id}-delete` == e.target.id)
+    this.props.dispatch(beerRemove(item.id)) // dealing with global cart storage
+
+    let newCart = this.state.cart.filter((beer) => { // dealing with local cart storage async problem
+      return (beer.id != item.id)
+    })
+    this.setState({
+      cart: newCart
+    })
+  }
+
+  handleCheckout () {
+    this.props.dispatch(navigate('thankyou'))
+    this.props.dispatch(purchase(this.state.cart))
+    // do something on thankyou page 
   }
 
 
@@ -52,8 +77,7 @@ class Cart extends React.Component {
                 <td>
                   <input className='update-input' value={item.quantity} onChange={this.handleChange} id={item.id} />
                 </td>
-                <td><button><span className='fa fa-trash fa-2x' /></button></td>
-                {/* TODO: implement deletes */}
+                <td><button><span onClick={this.handleDelete} id={`${item.id}-delete`} className='fa fa-trash fa-2x' /></button></td>
               </tr>
             )
           })}
@@ -63,12 +87,14 @@ class Cart extends React.Component {
       <p className='actions'>
         <a href='#' onClick={() => this.props.dispatch(navigate('listing'))}>Continue shopping</a>
         <button onClick={this.handleSubmit}>Update</button>
-        <button className='button-primary'>Checkout</button>
+        <button className='button-primary' onClick={this.handleCheckout}>Checkout</button>
       </p>
     </div>
     )
   }
 }
+
+
 
 const mapStateToProps = (state) => {
   return {
