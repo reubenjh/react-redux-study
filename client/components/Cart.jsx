@@ -59,37 +59,38 @@ class Cart extends React.Component {
 
 
   render() {
-    return (<div className='cart'>
-      <table>
-        <thead>
-          <tr>
-            <td>Beer</td>
-            <td>Quantity</td>
-            <td>Remove</td>
-          </tr>
-        </thead>
-        <tbody>
-          {this.state.cart.map((item) => { // maps own state instance of cart 
-            const name = item.name
-            return (
-              <tr key={item.id}>
-                <td>{name}</td>
-                <td>
-                  <input className='update-input' value={item.quantity} onChange={this.handleChange} id={item.id} />
-                </td>
-                <td><button><span onClick={this.handleDelete} id={`${item.id}-delete`} className='fa fa-trash fa-2x' /></button></td>
-              </tr>
-            )
-          })}
-        </tbody>
-      </table>
+    return (
+      <div className='cart'>
+        <table>
+          <thead>
+            <tr>
+              <td>Beer</td>
+              <td>Quantity</td>
+              <td>Remove</td>
+            </tr>
+          </thead>
+          <tbody>
+            {this.state.cart.map((item) => { // maps own state instance of cart 
+              const name = item.name
+              return (
+                <tr key={item.id}>
+                  <td>{name}</td>
+                  <td>
+                    <input className='update-input' value={item.quantity} onChange={this.handleChange} id={item.id} />
+                  </td>
+                  <td><button><span onClick={this.handleDelete} id={`${item.id}-delete`} className='fa fa-trash fa-2x' /></button></td>
+                </tr>
+              )
+            })}
+          </tbody>
+        </table>
 
-      <p className='actions'>
-        <a href='#' onClick={() => this.props.dispatch(navigate('listing'))}>Continue shopping</a>
-        <button onClick={this.handleSubmit}>Update</button>
-        <button className='button-primary' onClick={this.handleCheckout}>Checkout</button>
-      </p>
-    </div>
+        <p className='actions'>
+          <a href='#' onClick={() => this.props.dispatch(navigate('listing'))}>Continue shopping</a>
+          <button onClick={this.handleSubmit}>Update</button>
+          <button className='button-primary' onClick={this.handleCheckout}>Checkout</button>
+        </p>
+      </div>
     )
   }
 }

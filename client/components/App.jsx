@@ -6,6 +6,8 @@ import Cart from './Cart'
 import Header from './Header'
 import BeerList from './BeerList'
 import ThankYou from './ThankYou'
+import Login from './Login'
+import Register from './Register'
 
 // data
 import beerData from '../../data/beers'
@@ -27,6 +29,8 @@ class App extends React.Component {
     return (
       <div className='app'>
         <Header />
+        {this.props.navigation == 'login' && <Login />}
+        {this.props.navigation == 'register' && <Register />}
         {this.props.navigation == 'listing' && beerList}
         {this.props.navigation == 'cart' && cart}
         {this.props.navigation == 'thankyou' && thankYou}

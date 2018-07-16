@@ -32,3 +32,9 @@ export const purchase = (cart) => {
     cart
   }
 }
+
+export const logout = () => {
+  return {
+    type: "LOGOUT",
+  }
+}
