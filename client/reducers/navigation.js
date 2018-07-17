@@ -6,6 +6,8 @@ export const navigationReducer = (state = initialState, action) => {
             return action.target
         case 'ADD_TO_CART':
             return 'cart'
+        case 'LOGIN_RECEIVED': 
+            return 'listing'
         default:
             return state
     }

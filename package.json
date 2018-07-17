@@ -36,6 +36,13 @@
   "dependencies": {
     "babel-preset-stage-3": "^6.24.1",
     "body-parser": "^1.17.1",
-    "express": "^4.15.2"
+    "dotenv": "^6.0.0",
+    "express": "^4.15.2",
+    "jsonwebtoken": "^8.3.0",
+    "jwt-decode": "^2.2.0",
+    "knex": "^0.15.1",
+    "redux-thunk": "^2.3.0",
+    "sqlite3": "^4.0.2",
+    "superagent": "^3.8.3"
   }
 }
